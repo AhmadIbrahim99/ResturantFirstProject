@@ -27,6 +27,7 @@ namespace ResturantFirstProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] OrderVM order)
         {
+            if (!await _service.isAvailable(order.IdResturantMenu)) return BadRequest();
             order.OrderName = order.OrderName.ToTitleCase();
             await _service.Add(_mapper.Map<Order>(order));
             return Ok();
