@@ -5,6 +5,7 @@ using ResturantFirstProject.Extentions;
 using ResturantFirstProject.Models;
 using ResturantFirstProject.Services;
 using ResturantFirstProject.ViewModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ResturantFirstProject.Controllers
@@ -62,7 +63,7 @@ namespace ResturantFirstProject.Controllers
         }
         [Route("GetAll")]
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(_mapper.Map<ResturantMenuVM>(await _service.GetAll()));
+        public async Task<IActionResult> GetAll() => Ok(_mapper.Map<List<ResturantMenuVM>>(await _service.GetAll()));
 
     }
 }
