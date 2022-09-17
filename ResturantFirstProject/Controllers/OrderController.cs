@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ResturantFirstProject.Extentions;
 using ResturantFirstProject.Models;
@@ -29,6 +28,7 @@ namespace ResturantFirstProject.Controllers
         {
             if (!await _service.isAvailable(order.IdResturantMenu)) return BadRequest();
             order.OrderName = order.OrderName.ToTitleCase();
+            
             await _service.Add(_mapper.Map<Order>(order));
             return Ok();
         }
@@ -41,7 +41,7 @@ namespace ResturantFirstProject.Controllers
             if (result == null) return BadRequest();
             var result2 = await _service.GetById(order.Id);
             if (result2 == null) return BadRequest();
-
+            if (!await _service.isAvailable(order.IdResturantMenu)) return BadRequest();
             order.OrderName = order.OrderName.ToTitleCase();
             await _service.Update(id, order);
             return Ok();

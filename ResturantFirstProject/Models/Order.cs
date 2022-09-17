@@ -15,6 +15,8 @@ namespace ResturantFirstProject.Models
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public bool Archived { get; set; }
+        public double TotalPrice { get; set; }
+        public int Quantity { get; set; }
 
         public virtual Customer IdCustomerNavigation { get; set; }
         public virtual RestaurantMenu IdResturantMenuNavigation { get; set; }

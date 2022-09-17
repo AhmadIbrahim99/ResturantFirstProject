@@ -60,7 +60,8 @@ namespace ResturantFirstProject.Models
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
-
+                entity.Property(e => e.TotalPrice).HasColumnName("TotalPrice");
+                entity.Property(e => e.Quantity).HasColumnName("Quantity");
                 entity.Property(e => e.OrderName)
                     .IsRequired()
                     .HasMaxLength(255)

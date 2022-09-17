@@ -59,7 +59,7 @@ namespace ResturantFirstProject.Controllers
         {
             var result = await _service.GetById(id);
             if (result == null) return BadRequest();
-            return Ok(result);
+            return Ok(_mapper.Map<ResturantMenuVM>(result));
         }
         [Route("GetAll")]
         [HttpGet]

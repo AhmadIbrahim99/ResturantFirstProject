@@ -16,7 +16,16 @@ namespace ResturantFirstProject.Services
         public async Task<bool> isAvailable(int id)
         {
             var result = await _context.RestaurantMenus.FirstOrDefaultAsync(x => x.Id == id);
+            if (result == null) return false;
             return result.Quantity > 0;
+        }
+
+        public override async Task Add(Order entity)
+        {
+            var menu = await _context.RestaurantMenus.SingleOrDefaultAsync(x=> x.Id == entity.IdResturantMenu );
+            entity.TotalPrice = menu.PricieInNis * entity.Quantity;
+
+            await base.Add(entity);
         }
     }
 }

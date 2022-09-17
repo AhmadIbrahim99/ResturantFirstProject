@@ -26,8 +26,9 @@ namespace ResturantFirstProject.BaseRepo
         public async Task Delete(int id)
         {
            var entity = await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            entity.Archived = true;
             EntityEntry entityEntry= _context.Entry<T>(entity);
-            entityEntry.State = EntityState.Deleted;
+            entityEntry.State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 
