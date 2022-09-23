@@ -1,0 +1,35 @@
+﻿    SELECT
+        * 
+    FROM
+        (SELECT
+            *,
+            Rank() OVER (
+        ORDER BY
+            total_orders DESC) AS Rank_ 
+        FROM
+            (SELECT
+                sum(PriceInUsd) AS PriceInUsd,
+                sum(PricieInNIS) AS PricieInNIS,
+                Restaurants.Name AS RestuarntName,
+                CONCAT_WS(' ',
+                Customers.FirstName,
+                Customers.LastName) AS TheMostPurchasedCustomer,
+                Restaurants.Id AS resturantId,
+                count(Restaurants.Id) AS total_orders                            
+            FROM
+                Orders 
+            JOIN
+                Customers 
+                    ON Orders.IdCustomer = Customers.Id 
+            JOIN
+                RestaurantMenus 
+                    ON Orders.IdResturantMenu = RestaurantMenus.Id 
+            JOIN
+                Restaurants 
+                    ON RestaurantMenus.IdRestaurant = Restaurants.Id                            
+            GROUP BY
+                Restaurants.Name,
+                Restaurants.Id,
+                Customers.FirstName,
+                Customers.LastName,
+                IdCustomer) AA) BB)
